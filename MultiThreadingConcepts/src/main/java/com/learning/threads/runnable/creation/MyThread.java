@@ -9,6 +9,9 @@ public class MyThread implements Runnable{
     /*
         If we add a start method this doesn't impact the program as it is not getting called from anywhere
     */
+    public void start(){
+        System.out.println(Thread.currentThread().getName().concat(" --- Inside startMethod"));
+    }
     public static void main(String[] args) {
         MyThread classObject = new MyThread();
         System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(1)"));
