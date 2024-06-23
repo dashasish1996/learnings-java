@@ -1,6 +1,14 @@
 package com.learning.threads.runnable.creation;
 
-public class MyThread implements Runnable{
+public class MyThread implements Runnable {
+    public static void main(String[] args) {
+        MyThread classObject = new MyThread();
+        System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(1)"));
+        Thread th = new Thread(classObject);
+        th.start();
+        System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(2)"));
+    }
+
     @Override
     public void run() {
         System.out.println(Thread.currentThread().getName().concat(" --- Inside runMethod"));
@@ -9,14 +17,7 @@ public class MyThread implements Runnable{
     /*
         If we add a start method this doesn't impact the program as it is not getting called from anywhere
     */
-    public void start(){
+    public void start() {
         System.out.println(Thread.currentThread().getName().concat(" --- Inside startMethod"));
-    }
-    public static void main(String[] args) {
-        MyThread classObject = new MyThread();
-        System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(1)"));
-        Thread th = new Thread(classObject);
-        th.start();
-        System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(2)"));
     }
 }

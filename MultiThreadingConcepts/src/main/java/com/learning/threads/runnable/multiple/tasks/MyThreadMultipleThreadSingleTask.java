@@ -1,11 +1,6 @@
 package com.learning.threads.runnable.multiple.tasks;
 
-public class MyThreadMultipleThreadSingleTask implements Runnable{
-    @Override
-    public void run() {
-        System.out.println(Thread.currentThread().getName().concat(" --- Inside runMethod"));
-    }
-
+public class MyThreadMultipleThreadSingleTask implements Runnable {
     /*
         If we add a start method this doesn't impact the program as it is not getting called from anywhere
     */
@@ -17,5 +12,10 @@ public class MyThreadMultipleThreadSingleTask implements Runnable{
         Thread th2 = new Thread(classObject);
         th2.start();
         System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(2)"));
+    }
+
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName().concat(" --- Inside runMethod"));
     }
 }

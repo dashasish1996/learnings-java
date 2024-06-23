@@ -1,20 +1,6 @@
 package com.learning.threads.thread.mrthods;
 
 public class MyThreadMethods {
-    static class Task1 extends Thread{
-        @Override
-        public void run(){
-            System.out.println(Thread.currentThread().getName().concat(" --- Inside runMethod[Task1]"));
-        }
-    }
-    static class Task2 extends Thread{
-        @Override
-        public void run(){
-//            Thread.currentThread().setName("CheckSameName");    // This is possible
-            System.out.println(Thread.currentThread().getName().concat(" --- Inside runMethod[Task2]"));
-        }
-    }
-
     public static void main(String[] args) {
         System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(1)"));
         Thread.currentThread().setName("My Main");
@@ -32,5 +18,20 @@ public class MyThreadMethods {
         t4.start();
         System.out.println(Thread.currentThread().getName().concat(" --- Inside mainMethod(2)"));
         System.out.println(t3.isAlive());
+    }
+
+    static class Task1 extends Thread {
+        @Override
+        public void run() {
+            System.out.println(Thread.currentThread().getName().concat(" --- Inside runMethod[Task1]"));
+        }
+    }
+
+    static class Task2 extends Thread {
+        @Override
+        public void run() {
+//            Thread.currentThread().setName("CheckSameName");    // This is possible
+            System.out.println(Thread.currentThread().getName().concat(" --- Inside runMethod[Task2]"));
+        }
     }
 }
