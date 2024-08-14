@@ -1,0 +1,2 @@
+1. collect(Collectors.toList()) was introduced in Java 8, and it returns a Modifiable List whereas
+    .toList() was introduced in Java 16, and it returns an unmodifiable List.
