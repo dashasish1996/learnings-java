@@ -6,18 +6,69 @@ import com.java.streams.utils.GeneratePersonData;
 import com.java.streams.utils.GenerateStudents;
 
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MainClass {
     public static void main(String[] args) {
-        printStudentQuestionAnswers();
-        printPersonQuestionAnswers();
+        printStudentQuestionAnswersChatGPT();
+//        printStudentQuestionAnswers();
+//        printPersonQuestionAnswers();
     }
 
+    private static void printStudentQuestionAnswersChatGPT() {
+        var students = GenerateStudents.students;
+
+        // Get unique cities where students live.
+        var l1 = students.stream().map(Student::getCity).distinct().collect(Collectors.toList());
+        System.out.println(String.join(", ", l1));
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        //Convert list of students to a Map<String, Double> with fullName → grade.
+        var m2 = students.stream().collect(Collectors.toMap(s -> s.getFirstName().concat(" ").concat(s.getLastName()), Student::getGrade));
+        m2.entrySet().forEach(System.out::println);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        // Find average age per city.
+        var m3 = students.stream().collect(Collectors.groupingBy(Student::getCity, Collectors.averagingDouble(Student::getAge)));
+        m3.entrySet().forEach(System.out::println);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        // Create a CSV string of firstName,grade of students who scored above 8.
+        var l4 = students.stream().filter(s -> s.getGrade() > 8).map(s -> s.getFirstName().concat(",").concat(String.valueOf(s.getGrade()))).toList();
+        printList(l4, false);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        // Group students by department and get average age in each group.
+        var m5 = students.stream().collect(Collectors.groupingBy(Student::getDepartment, Collectors.averagingDouble(Student::getAge)));
+        m5.entrySet().forEach(System.out::println);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        // Find the youngest student in each department.
+        var m6_a = students.stream().collect(Collectors.groupingBy(Student::getDepartment, Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(Student::getAge)), Optional::get)));
+        var m6_b = students.stream().collect(Collectors.toMap(Student::getDepartment, Function.identity(), BinaryOperator.minBy(Comparator.comparing(Student::getAge))));
+        m6_a.entrySet().forEach(System.out::println);
+        m6_b.entrySet().forEach(System.out::println);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        /* TODO
+        Find the most common city among students.
+
+        Group students by department and count how many scored > 8.0 in each.
+            → Output: Map<String, Long>
+
+        Partition students who live in cities starting with "C".
+
+        Create a Map<String, List<String>> where key is city and value is list of full names.
+
+        From all students, build a frequency map of first characters of first names.
+            → Output: Map<Character, Long>
+
+        Find the second-highest grade in the whole list.
+        */
+    }
 
 
     private static void printStudentQuestionAnswers() {
