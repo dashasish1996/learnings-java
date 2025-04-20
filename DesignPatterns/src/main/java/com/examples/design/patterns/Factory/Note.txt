@@ -1,0 +1,3 @@
+The Factory Pattern is a creational design pattern that addresses object creation by providing an interface for
+creating objects, while allowing subclasses to determine the type of objects created.
+
