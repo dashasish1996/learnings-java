@@ -10,12 +10,37 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainClass {
+    static Student s2;
     public static void main(String[] args) {
-        printStudentQuestionAnswersChatGPT();
+//        printStudentQuestionAnswersChatGPT();
 //        printStudentQuestionAnswers();
 //        printPersonQuestionAnswers();
+//        String[] strs = {"asish", "asima", "asi", "asita"};
+//        System.out.println(">>>" + Arrays.stream(strs).min(Comparator.comparing(String::length)).orElse(""));
+
+        Student s1;
+
+//        System.out.println(s1);
+        System.out.println(">>>" + s2);
+
+        Integer[] integerArray = new Integer[] {6,8,2,6,7,1,2,3,4,5,6,7,8,9,10};
+        Integer i = Arrays.stream(integerArray).distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElse(-1);
+        System.out.println(i);
+
+        String str = "Asish";
+        // Count the number of occurrences of each character in a string.
+        var res = str.chars().mapToObj(r -> (char) r).collect(Collectors.groupingBy(Function.identity() , Collectors.counting()));
+
+        // Find all duplicate elements in a list of integers.
+        var nums = Arrays.stream(integerArray).collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream().filter(e -> e.getValue() >1 ).map(Map.Entry::getKey).toList();
+
+
+        // Find the longest string in a list.
+        var l = List.of("Abc", "A", "C", "ABCd");
+        l.stream().collect(Collectors.toMap(Function.identity(), String::length)).entrySet().stream().sorted(Comparator.comparing(Map.Entry::getValue)).findFirst().get();
     }
 
     private static void printStudentQuestionAnswersChatGPT() {
